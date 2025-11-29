@@ -1,20 +1,28 @@
 class Solution {
 public:
     int totalNumbers(vector<int>& d) {
-        unordered_set<int> s;
+        int count=0;
         int n=d.size();
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                for(int k=0;k<n;k++){
-                    if(i==k || i==j || j==k){
-                        continue;
-                        }
-                        int num=(d[i]*100)+(d[j]*10)+(d[k]*1);
-                        if(num>=100 && num%2==0) s.insert(num);
-                }
-            }
+        vector<int> freq(10,0);
+        for(int num:d){
+            freq[num]++;
         }
-        int size=s.size();
-        return size;
+        for(int i=1;i<=9;i++){
+            if(freq[i]==0) continue;
+            freq[i]--;
+            for(int j=0;j<=9;j++){
+                 if(freq[j]==0) continue;
+                 freq[j]--;
+                for(int k=0;k<=8;k+=2){
+                     if(freq[k]==0) continue;
+                     freq[k]--;
+                     count++;
+                     freq[k]++;
+                }
+                freq[j]++;
+            }
+            freq[i]++;
+        }
+        return count;
     }
 };
