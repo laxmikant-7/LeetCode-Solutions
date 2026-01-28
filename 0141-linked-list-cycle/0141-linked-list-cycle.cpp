@@ -9,12 +9,15 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        map<ListNode*,int> m;
         ListNode* temp=head;
-        while(temp!=NULL){
-            if(m.find(temp)!=m.end()) return true;
-            m.insert({temp,1});
+        if(temp==NULL || temp->next==NULL) return false;
+        int count=0;
+        while(true){
+            count++;
+            temp=temp->next;
+            if(temp==NULL) return false;
+            if(count>10000) return true;
         }
-        return false;
+        return true;
     }
 };
