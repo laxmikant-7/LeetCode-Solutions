@@ -11,19 +11,23 @@
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode* temp=head;
-        int count=0;
-        while(temp){
-            count++;
-            temp=temp->next;
+        ListNode* fast=head;
+        while(n--){
+            fast=fast->next;
         }
-        if(count==n) return head->next;
-        temp=head;
-        int val=count-n-1;
-        while(val--){
-            temp=temp->next;
+        if(fast==NULL){
+            ListNode* newHead=head->next;
+            delete head;
+            return newHead;
         }
-        temp->next=temp->next->next;
+        ListNode* slow=head;
+        while(fast->next){
+            fast=fast->next;
+            slow=slow->next;
+        }
+        ListNode* deleteNode=slow->next;
+        slow->next=slow->next->next;
+        delete deleteNode;
         return head;
     }
 };
