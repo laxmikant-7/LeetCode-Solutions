@@ -1,19 +1,21 @@
 class Solution {
 public:
-    void find_all_subsets(vector<int>& nums,vector<vector<int>> &ans,vector<int> &temp,int i){
-        if(i==nums.size()){
-            ans.push_back(temp);
-            return;
-        }
-        temp.push_back(nums[i]);
-        find_all_subsets(nums,ans,temp,i+1);
-        temp.pop_back();
-        find_all_subsets(nums,ans,temp,i+1);
+    bool isSetBit(int n,int i){
+        return (n&(1<<i));
     }
     vector<vector<int>> subsets(vector<int>& nums) {
+        int n=nums.size();
         vector<vector<int>> ans;
-        vector<int> temp;
-        find_all_subsets(nums,ans,temp,0);
+        int subsets=1<<n;
+        for(int i=0;i<subsets;i++){
+            vector<int> temp;
+            for(int j=0;j<n;j++){
+                if(isSetBit(i,j)){
+                    temp.push_back(nums[j]);
+                }
+            }
+            ans.push_back(temp);
+        }
         return ans;
     }
 };
