@@ -11,7 +11,7 @@ public:
             s2.push(s1.top());
             s1.pop();
         }
-        s1.push(x);
+        s2.push(x);
         while(!s2.empty()){
             s1.push(s2.top());
             s2.pop();
@@ -19,17 +19,17 @@ public:
     }
     
     int pop() {
-        int ans=s1.top();
+        int val=s1.top();
         s1.pop();
-        return ans;
+        return val;
     }
     
     int peek() {
-        return s1.top();
+       return s1.top();
     }
     
     bool empty() {
-        return s1.size()==0;
+        return s1.empty();
     }
 };
 
