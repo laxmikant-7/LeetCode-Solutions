@@ -7,16 +7,11 @@ public:
         int flips=0;
         while(j<n){
             if(nums[j]==0) flips++;
-            if(flips<k){
-                maxlen=max(maxlen,j-i+1);
+            if(flips>k){
+                if(nums[i]==0) flips--;
+                i++;
             }
-            else{
-                while(flips>k){
-                    if(nums[i]==0){
-                        flips--;
-                    }
-                    i++;
-                }
+            if(flips<=k){
                 maxlen=max(maxlen,j-i+1);
             }
             j++;
