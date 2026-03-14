@@ -12,7 +12,7 @@ public:
 
             if((j-i+1)-maxfreq>k){
                 freq[s[i]-'A']--;
-                maxfreq=max(maxfreq,freq[i]);
+                maxfreq=max(maxfreq,freq[s[i]-'A']);
                 i++;
             }
 
