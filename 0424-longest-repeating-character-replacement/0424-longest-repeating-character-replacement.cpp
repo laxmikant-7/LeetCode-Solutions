@@ -10,10 +10,9 @@ public:
             freq[s[j]-'A']++;
             maxfreq=max(maxfreq,freq[s[j]-'A']);
 
-            while((j-i+1)-maxfreq>k){
+            if((j-i+1)-maxfreq>k){
                 freq[s[i]-'A']--;
-                maxfreq=0;
-                for(int k=0;k<26;k++) maxfreq=max(maxfreq,freq[k]);
+                maxfreq=max(maxfreq,freq[i]);
                 i++;
             }
 
