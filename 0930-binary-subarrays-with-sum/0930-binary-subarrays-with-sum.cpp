@@ -1,16 +1,29 @@
 class Solution {
 public:
-    int numSubarraysWithSum(vector<int>& nums, int goal) {
-        int cnt=0;
-        int n=nums.size();
-        for(int i=0;i<n;i++){
-            int sum=0;
-            for(int j=i;j<n;j++){
-                sum+=nums[j];
-                if(sum==goal) cnt++;
-                else if(sum>goal) break;
+    int find(vector<int>& nums, int goal){
+        if(goal < 0) return 0;
+
+        int i = 0;
+        int sum = 0;
+        int total = 0;
+
+        for(int j = 0; j < nums.size(); j++){
+
+            sum += nums[j];
+
+            while(sum > goal){
+                sum -= nums[i];
+                i++;
             }
+
+            total += (j - i + 1);
         }
-        return cnt;
+
+        return total;
+    }
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        int f1=find(nums,goal);
+        int f2=find(nums,goal-1);
+        return f1-f2;
     }
 };
