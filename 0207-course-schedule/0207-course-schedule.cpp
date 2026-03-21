@@ -1,39 +1,33 @@
 class Solution {
 public:
-    bool dfs(int node, vector<int> adj[], vector<int>& vis, vector<int>& pathVis) {
-        vis[node] = 1;
-        pathVis[node] = 1;
-
-        for (auto it : adj[node]) {
-            if (!vis[it]) {
-                if (dfs(it, adj, vis, pathVis)) return true;
+    bool isCyclic(int src,vector<int> arr[],vector<int> &vis,vector<int> &path){
+        vis[src]=1;
+        path[src]=1;
+        for(auto nigh:arr[src]){
+            if(!vis[nigh]){
+                if(isCyclic(nigh,arr,vis,path)) return true;
             }
-            else if (pathVis[it]) {
-                return true; 
+            else if(path[nigh]){
+                return true;
             }
         }
-
-        pathVis[node] = 0; 
+        path[src]=0;
         return false;
     }
-
     bool canFinish(int n, vector<vector<int>>& p) {
-        vector<int> adj[n];
-
-        for (int i = 0; i < p.size(); i++) {
-            int u = p[i][1];
-            int v = p[i][0];
-            adj[u].push_back(v);
+        vector<int> arr[n];
+        for(auto &pair:p){
+            int u=pair[1];
+            int v=pair[0];
+            arr[u].push_back(v);
         }
-
-        vector<int> vis(n, 0), pathVis(n, 0);
-
-        for (int i = 0; i < n; i++) {
-            if (!vis[i]) {
-                if (dfs(i, adj, vis, pathVis)) return false;
+        vector<int> vis(n,0);
+        vector<int> path(n,0);
+        for(int i=0;i<n;i++){
+            if(!vis[i]){
+                if(isCyclic(i,arr,vis,path)) return false;
             }
         }
-
         return true;
     }
 };
