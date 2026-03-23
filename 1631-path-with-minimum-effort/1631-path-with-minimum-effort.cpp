@@ -15,6 +15,7 @@ public:
             int eff=it[0];
             int x=it[1];
             int y=it[2];
+            if(x==n-1 && y==m-1) return eff;
             for(int i=0;i<4;i++){
                 int nx=x+dx[i];
                 int ny=y+dy[i];
