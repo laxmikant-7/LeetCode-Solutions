@@ -4,6 +4,7 @@ public:
         int n=rooms.size();
         vector<int> vis(n,0);
         vis[0]=1;
+        int count=1;
         queue<int> q;
         q.push(0);
         while(!q.empty()){
@@ -13,13 +14,11 @@ public:
                 if(key==room) continue;
                 if(vis[key]==0){
                     vis[key]=1;
+                    count++;
                     q.push(key);
                 }
             }
         }
-        for(int i=0;i<n;i++){
-            if(vis[i]==0) return false;
-        }
-        return true;
+        return count==n;
     }
 };
