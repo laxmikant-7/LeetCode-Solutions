@@ -5,18 +5,19 @@ public:
         return true;
     }
     int uniquePaths(int m, int n) {
-        vector<vector<int>> dp(m,vector<int>(n,0));
-        dp[0][0]=1;
+        vector<int> prev(n,0);
         for(int i=0;i<m;i++){
+            vector<int> temp(n,0);
             for(int j=0;j<n;j++){
-                if(i==0 && j==0) continue;
+                if(i==0 && j==0) temp[0]=1;
                 else{
-                    int up=(valid(i-1,j,m,n))?dp[i-1][j]:0;
-                    int left=(valid(i,j-1,m,n))?dp[i][j-1]:0;
-                    dp[i][j]=up+left;
+                    int up=(valid(i-1,j,m,n))?prev[j]:0;
+                    int left=(valid(i,j-1,m,n))?temp[j-1]:0;
+                    temp[j]=up+left;
                 }
             }
+            swap(temp,prev);
         }
-        return dp[m-1][n-1];
+        return prev[n-1];
     }
 };
