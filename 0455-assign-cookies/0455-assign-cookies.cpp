@@ -1,21 +1,17 @@
 class Solution {
 public:
+    int solve(vector<int>& g, vector<int>& s, int i, int j){
+        if(i == s.size() || j == g.size()) return 0;
+        if(s[i] >= g[j]){
+            return 1 + solve(g, s, i+1, j+1);
+        }
+        return solve(g, s, i+1, j);
+    }
     int findContentChildren(vector<int>& g, vector<int>& s) {
-        int n=g.size();
-        int m=s.size();
         sort(g.begin(),g.end());
         sort(s.begin(),s.end());
-        int l=0;
-        int r=0;
-        while(l<n && r<m){
-            if(s[r]>=g[l]){
-                l++;
-                r++;
-            }
-            else{
-                r++;
-            }
-        }
-        return l;
+       // vector<vector<int>> dp(s.size(),vector<int>(g.size(),-1));
+        return solve(g,s,0,0);
+        
     }
 };
