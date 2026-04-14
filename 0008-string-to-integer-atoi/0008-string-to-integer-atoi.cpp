@@ -4,7 +4,7 @@ public:
         if(i>=s.size() || !isdigit(s[i])){
             return num;
         }
-        if(num*10+(s[i]-'0')>=INT_MAX) return num*10+(s[i]-'0';
+        if(num*10+(s[i]-'0')>=INT_MAX) return num*10+(s[i]-'0');
         else{
             num=num*10+(s[i]-'0');
         }
