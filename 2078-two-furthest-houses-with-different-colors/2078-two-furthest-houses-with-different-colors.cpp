@@ -7,6 +7,7 @@ public:
             for(int j=n-1;j>i;j--){
                 if(colors[i]!=colors[j]){
                     ans=max(ans,abs(i-j));
+                    break;
                 }
             }
         }
