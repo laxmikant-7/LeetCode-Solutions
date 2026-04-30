@@ -18,7 +18,8 @@ public:
         int n1=word1.size();
         int n2=word2.size();
         vector<vector<int>> dp(n1+1,vector<int>(n2+1,-1));
-        
+        //int maxlength=solve(word1,word2,n1,n2,dp);
+        //return (n1-maxlength)+(n2-maxlength);
 
 
         for(int i=0;i<=n1;i++){
