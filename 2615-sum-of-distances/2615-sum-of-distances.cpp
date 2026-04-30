@@ -21,9 +21,6 @@ public:
             long long rsum=tsum[nums[i]]-(presum[i]+i);
             ans[i]=abs((1LL*lcount*i)-lsum)+abs((1LL*rcount*i)-rsum);
         }
-
-
-        
         return ans;
     }
 };
