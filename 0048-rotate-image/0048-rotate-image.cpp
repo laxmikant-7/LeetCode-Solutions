@@ -1,18 +1,16 @@
 class Solution {
 public:
     void rotate(vector<vector<int>>& mat) {
-        int m=mat.size();
-        int n=mat[0].size();
-        int x;
-        vector<vector<int>> ans(n,vector<int>(m));
+        int n=mat.size();
+        vector<vector<int>> temp(n,vector<int>(n));
+        int y=n-1;
         for(int i=0;i<n;i++){
-            x=m-1;
-            for(int j=0;j<m;j++){
-                ans[i][j]=mat[x][i];
-                x--;
+            for(int j=0;j<n;j++){
+                temp[j][y]=mat[i][j];
             }
+            y--;
         }
-        mat=ans;
+        mat=temp;
         return;
     }
 };
