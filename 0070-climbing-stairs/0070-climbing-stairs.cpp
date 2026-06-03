@@ -8,13 +8,15 @@ public:
 // }
     int climbStairs(int n) {
         if(n<=2) return n;
-        vector<long long> dp(n+1,-1);
-        dp[1]=1;
-        dp[2]=2;
+        // vector<long long> dp(n+1,-1);
+        int pre2=1;
+        int pre1=2;
         for(int i=3;i<=n;i++){
-            dp[i]=dp[i-1]+dp[i-2];
+            int curr=pre1+pre2;
+            pre2=pre1;
+            pre1=curr;
         }
-        return (int)dp[n];
+        return (int)pre1;
        // return solve(n,dp);
     }
 };
