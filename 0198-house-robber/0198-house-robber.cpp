@@ -10,16 +10,18 @@ public:
     // }
     int rob(vector<int>& nums) {
         int n=nums.size();
-        vector<int> dp(n,-1);
         // return find(0,nums,dp);
-        dp[0]=nums[0];
-        int neg=0;
+        int p1=nums[0];
+        int p2=nums[0];
         for(int i=1;i<n;i++){
             int take=nums[i];
-            if(i>1) take+=dp[i-2];
-            int nontake=dp[i-1];
-            dp[i]=max(take,nontake);
+            if(i>1) {
+                take+=p1;
+                p1=p2;
+                }
+            int nontake=p2;
+            p2=max(take,nontake);
         }
-        return dp[n-1];
+        return p2;
     }
 };
