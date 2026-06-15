@@ -20,7 +20,7 @@ public:
             s=s->next;
             f=f->next->next;
         }
-        if(pre && pre->next) pre->next=s->next;
+        pre->next=s->next;
         s->next=NULL;
         return head;
     }
