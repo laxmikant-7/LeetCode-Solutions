@@ -1,23 +1,15 @@
 class Solution {
 public:
-    bool valid(int i,int j,int m,int n){
-        if(i<0 || j<0 || i>=m || j>=n) return false;
-        return true;
+    int find(int i,int j,int m,int n,vector<vector<int>> &dp){
+        if(i>=m || j>=n) return 0;
+        if(i==m-1 && j==n-1) return 1;
+        if(dp[i][j]!=-1) return dp[i][j];
+        int right=find(i,j+1,m,n,dp);
+        int down=find(i+1,j,m,n,dp);
+        return dp[i][j]=right+down;
     }
     int uniquePaths(int m, int n) {
-        vector<int> prev(n,0);
-        for(int i=0;i<m;i++){
-            vector<int> temp(n,0);
-            for(int j=0;j<n;j++){
-                if(i==0 && j==0) temp[0]=1;
-                else{
-                    int up=(valid(i-1,j,m,n))?prev[j]:0;
-                    int left=(valid(i,j-1,m,n))?temp[j-1]:0;
-                    temp[j]=up+left;
-                }
-            }
-            swap(temp,prev);
-        }
-        return prev[n-1];
+        vector<vector<int>> dp(m,vector<int>(n,-1));
+        return find(0,0,m,n,dp);   
     }
 };
