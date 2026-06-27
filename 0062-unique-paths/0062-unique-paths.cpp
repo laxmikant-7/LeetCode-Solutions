@@ -9,22 +9,22 @@ public:
     //     return dp[i][j]=right+down;
     // }
     int uniquePaths(int m, int n) {
-        vector<vector<int>> dp(m,vector<int>(n,0));
-
-        dp[m-1][n-1]=1;
+        vector<int> pre(n,0);
         
         for(int i=m-1;i>=0;i--){
+            vector<int> temp(n,0);
             for(int j=n-1;j>=0;j--){
-                if(i==m-1 && j==n-1) dp[i][j]=1;
+                if(i==m-1 && j==n-1) temp[j]=1;
                 else{
                     int r=0;
                     int l=0;
-                    if(j+1<n) r=dp[i][j+1];
-                    if(i+1<m) l=dp[i+1][j];
-                    dp[i][j]=r+l;
+                    if(j+1<n) r=temp[j+1];
+                    if(i+1<m) l=pre[j];
+                    temp[j]=r+l;
                 }
             }
+            pre=temp;
         }
-        return dp[0][0];
+        return pre[0];
     }
 };
