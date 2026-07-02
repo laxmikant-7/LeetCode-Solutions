@@ -1,25 +1,26 @@
 class Solution {
-public:
-    bool solve(vector<int>& nums,vector<vector<int>> &dp,int t,int i){
-        if(t==0) return true;
-        if(i==nums.size()) return t==0;
-        if(dp[i][t]!=-1) return dp[i][t];
-        bool take=false;
-        if(nums[i]<=t){
-            take=solve(nums,dp,t-nums[i],i+1);
-        }
-        bool nontake=solve(nums,dp,t,i+1);
-        return dp[i][t]=take||nontake;
-    }
-    
+public:    
     bool canPartition(vector<int>& nums) {
         int n=nums.size();
-        int target=0;
-        for(auto num:nums){
-            target+=num;
+        int totalsum=0;
+        for(auto num:nums) totalsum+=num;
+        if(totalsum%2!=0) return false;
+        int t=totalsum/2;
+        vector<vector<bool>> dp(n,vector<bool>(t+1,false));
+        for(int i=0;i<n;i++) dp[i][0]=true;
+        for(int i=1;i<=t;i++){
+            if(nums[0]==i) dp[0][i]=true;
         }
-        if(target%2==1) return false;
-        vector<vector<int>> dp(n,vector<int>((target/2)+1,-1));
-        return solve(nums,dp,target/2,0);
+        for(int i=1;i<n;i++){
+            for(int tar=1;tar<=t;tar++){
+                bool nottake=dp[i-1][tar];
+                bool take=false;
+                if(nums[i]<=tar){
+                    take=dp[i-1][tar-nums[i]];
+                }
+                dp[i][tar]=(take||nottake);
+            }
+        }
+        return dp[n-1][t];
     }
 };
