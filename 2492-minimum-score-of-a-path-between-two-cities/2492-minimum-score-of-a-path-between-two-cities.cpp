@@ -1,17 +1,5 @@
 class Solution {
 public:
-    int ans=INT_MAX;
-    void solve(unordered_map<int,vector<pair<int,int>>> &m,int src,int &ans,vector<bool> &vis){
-        vis[src]=true;
-        for(auto p:m[src]){
-            int v=p.first;
-            int d=p.second;
-            ans=min(ans,d);
-            if(!vis[v]){
-                solve(m,v,ans,vis);
-            }
-        }
-    }
     int minScore(int n, vector<vector<int>>& roads) {
         unordered_map<int,vector<pair<int,int>>> m;
         for(auto &it:roads){
@@ -21,8 +9,24 @@ public:
             m[u].push_back({v,w});
             m[v].push_back({u,w});
         }
+        int ans=INT_MAX;
         vector<bool> vis(n+1,false);
-        solve(m,1,ans,vis);
+        queue<int> q;
+        q.push(1);
+        vis[1]=true;
+        while(!q.empty()){
+            int u=q.front();
+            q.pop();
+            vis[u]=true;
+            for(auto &adj:m[u]){
+                int v=adj.first;
+                int w=adj.second;
+                ans=min(ans,w);
+                if(!vis[v]){
+                    q.push(v);
+                }
+            }
+        }
         return ans;
     }
 };
