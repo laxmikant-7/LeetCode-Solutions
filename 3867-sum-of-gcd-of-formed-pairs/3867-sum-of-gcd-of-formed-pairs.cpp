@@ -19,7 +19,7 @@ public:
             int temp=gcd(pgcd[i],pgcd[j]);
             i++;
             j--;
-            ans+=(0LL+temp);
+            ans+=(1LL*temp);
         }
 
         return ans;
