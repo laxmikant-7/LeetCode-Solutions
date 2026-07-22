@@ -1,42 +1,28 @@
 class Solution {
 public:
-    bool exist(vector<vector<char>>& mat,int r,int c,int sz){
-        for(int i=r;i<r+sz;i++){
-            for(int j=c;j<c+sz;j++){
-                if(mat[i][j]=='0') return false;
-            }
+    int maximalSquare(vector<vector<char>>& matrix) {
+        if (matrix.empty() || matrix[0].empty()) {
+            return 0;
         }
-        return true;
-
-    }
-    bool possible(vector<vector<char>>& mat,int sz){
-        int r=mat.size();
-        int c=mat[0].size();
-        for(int i=0;i<=r-sz;i++){
-            for(int j=0;j<=c-sz;j++){
-                if(exist(mat,i,j,sz)) return true;
-            }
-        }
-        return false;
-    }
-    int maximalSquare(vector<vector<char>>& mat) {
-        int r=mat.size();
-        int c=mat[0].size();
-        int mxsz=min(r,c);
-        int mnsz=0;
-        int ans=0;
-        while(mnsz<=mxsz){
-            int mid=mnsz+(mxsz-mnsz)/2;
-            if(possible(mat,mid)){
-                ans=max(ans,mid);
-                mnsz=mid+1;
-            }
-            else{
-                mxsz=mid-1;
-            }
-        }
-        return ans*ans;
-
         
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        vector<vector<int>> dp(rows, vector<int>(cols, 0));
+        int max_side = 0;
+        
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                if (matrix[i][j] == '1') {
+                    if (i == 0 || j == 0) {
+                        dp[i][j] = 1;
+                    } else {
+                        dp[i][j] = min({dp[i-1][j], dp[i][j-1], dp[i-1][j-1]}) + 1;
+                    }
+                    max_side = max(max_side, dp[i][j]);
+                }
+            }
+        }
+        
+        return max_side * max_side;
     }
 };
