@@ -1,54 +1,59 @@
-class Node{
-public:
-    Node* links[26];
-    bool flag;
-    Node(){
-    for(int i=0;i<26;i++){
-        links[i]=NULL;
-    }
-    flag=false;
-    }
-    bool iscontains(char ch){
-        return links[ch-'a']!=NULL;
-    }
-    void put(char ch,Node* node){
-        links[ch-'a']=node;
-    }
-};
 class Trie {
-private:
-    Node* root;
 public:
-    Trie() {
-        root=new Node();
-    } 
+struct Node{
+    bool isendofword;
+    Node* children[26];
+};
+
+Node* getNode(){
+    Node* newNode=new Node();
+    newNode->isendofword=false;
+    for(int i=0;i<26;i++) newNode->children[i]=NULL;
+    return newNode;
+}
+
+Node* root=getNode();
+
     void insert(string word) {
-        Node* node=root;
+        Node* temp=root;
         for(int i=0;i<word.size();i++){
-            if(!node->iscontains(word[i])){
-                node->put(word[i],new Node());
+            char ch=word[i];
+            int idx=ch-'a';
+            if(temp->children[idx]==NULL){
+                temp->children[idx]=getNode();
             }
-            node=node->links[word[i]-'a'];
+            temp=temp->children[idx];
         }
-        node->flag=true;  
+          temp->isendofword=true;
     }
     
     bool search(string word) {
-        Node* node=root;
+        Node* temp=root;
         for(int i=0;i<word.size();i++){
-            if(!node->iscontains(word[i])) return false;
-            node=node->links[word[i]-'a'];
+            char ch=word[i];
+            int idx=ch-'a';
+            if(temp->children[idx]==NULL){
+                return false;
+            }
+            temp=temp->children[idx];
         }
-        return node->flag;
+          return temp->isendofword==true;
+        
     }
     
     bool startsWith(string prefix) {
-        Node* node=root;
-        for(int i=0;i<prefix.size();i++){
-            if(!node->iscontains(prefix[i])) return false;
-            node=node->links[prefix[i]-'a'];
+        Node* temp=root;
+        int i=0;
+        for(;i<prefix.size();i++){
+            char ch=prefix[i];
+            int idx=ch-'a';
+            if(temp->children[idx]==NULL){
+                return false;
+            }
+            temp=temp->children[idx];
         }
-        return true;
+          return i==prefix.size();
+        
     }
 };
 
