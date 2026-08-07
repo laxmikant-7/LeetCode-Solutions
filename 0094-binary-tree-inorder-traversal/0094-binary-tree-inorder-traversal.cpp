@@ -12,7 +12,7 @@
 class Solution {
 public:
     void find(TreeNode* root,vector<int> &ans){
-        if(root==NULL) return;
+        if(!root) return;
         find(root->left,ans);
         ans.push_back(root->val);
         find(root->right,ans);
