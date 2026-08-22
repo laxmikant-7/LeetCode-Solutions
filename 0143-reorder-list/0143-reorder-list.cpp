@@ -10,34 +10,31 @@
  */
 class Solution {
 public:
-    ListNode* solve(ListNode* head){
-        if(!head || !head->next) return head;
-        ListNode* newhead=solve(head->next);
-        ListNode* front=head->next;
-        front->next=head;
-        head->next=NULL;
-        return newhead;
-    }
+    // ListNode* solve(ListNode* head){
+    //     if(!head || !head->next) return head;
+    //     ListNode* newhead=solve(head->next);
+    //     ListNode* front=head->next;
+    //     front->next=head;
+    //     head->next=NULL;
+    //     return newhead;
+    // }
     void reorderList(ListNode* head) {
-        if(!head->next || !head->next->next) return;
-        ListNode* slow=head;
-        ListNode* fast=head;
-        while(fast->next && fast->next->next){
-            slow=slow->next;
-            fast=fast->next->next;
+        if(!head || !head->next || !head->next->next) return;
+        stack<ListNode*> st;
+        ListNode* curr=head;
+        while(curr){
+            st.push(curr);
+            curr=curr->next;
         }
-        ListNode* second = slow->next;
-        slow->next = NULL;
-        ListNode* rev=solve(second);
-        ListNode* first = head;
-        while(rev){
-            ListNode* nextFirst = first->next;
-            ListNode* nextRev = rev->next;
-            first->next = rev;
-            rev->next = nextFirst;
-            first = nextFirst;
-            rev = nextRev;
+        int k=st.size()/2;
+        curr=head;
+        while(k--){
+            ListNode* nextNode=curr->next;
+            curr->next=st.top();
+            st.top()->next=nextNode;
+            st.pop();
+            curr=nextNode;
         }
-        return;
+        curr->next=NULL;
     }
 };
