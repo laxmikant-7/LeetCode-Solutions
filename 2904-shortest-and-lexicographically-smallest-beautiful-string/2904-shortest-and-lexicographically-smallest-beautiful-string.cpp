@@ -14,13 +14,13 @@ public:
             }
             if(no_ones==k){
                 while(s[i]=='0') i++;
-                string temp = s.substr(i, j - i + 1);
-                if (temp.length() < len) {
-                    ans = temp;
-                    len = temp.length();
+                string temp=s.substr(i, j-i+1);
+                if (temp.length()<len) {
+                    ans=temp;
+                    len=temp.length();
                 }
-                else if (temp.length() == len && temp < ans) {
-                    ans = temp;
+                else if (temp.length()==len && temp<ans) {
+                    ans=temp;
                 }  
             }
             j++;
