@@ -1,16 +1,16 @@
 class Solution {
 public:
     string removeOuterParentheses(string s) {
+        int x=0;
         string ans="";
-        int count=0;
-        for(char c:s){
-            count+=(c=='(') ? 1:-1;
-            if(c=='(' && count>1){
-                ans+='(';
-            }
-            else if(c==')' && count>0){
-                ans+=')';
-            }
+        for(auto ch:s){
+            bool add=true;
+           if((x==0 && ch=='(') || (x==1 && ch==')')) add=false;
+
+           if(ch=='(') x++;
+           else x--;
+
+           if(add) ans.push_back(ch);
         }
         return ans;
     }
